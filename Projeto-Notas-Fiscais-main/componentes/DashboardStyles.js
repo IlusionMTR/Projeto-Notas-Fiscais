@@ -1,82 +1,169 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  // BASE
   container: {
     flex: 1,
-    backgroundColor: '#0D1117', // fundo dark moderno
+    backgroundColor: '#0D1117',
   },
 
-  header: {
+  // TOPBAR
+  topbar: {
+    height: 50,
     backgroundColor: '#161B22',
-    padding: 20,
-    paddingTop: 50,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    justifyContent: 'center',
+    paddingHorizontal: 15,
     borderBottomWidth: 1,
     borderColor: '#30363D',
   },
 
-  titulo: {
-    fontSize: 22,
-    fontWeight: 'bold',
+  logo: {
     color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 
-  subtitulo: {
-    color: '#8B949E',
-    fontSize: 13,
-    marginTop: 4,
-  },
-
-  lista: {
-    padding: 15,
-  },
-
-  card: {
-    backgroundColor: '#161B22',
-    padding: 15,
-    borderRadius: 12,
-    marginBottom: 12,
+  // LAYOUT PRINCIPAL
+  main: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  },
 
+  // SIDEBAR
+  sidebar: {
+    width: 220,
+    backgroundColor: '#161B22',
+    padding: 12,
+    borderRightWidth: 1,
+    borderColor: '#30363D',
+  },
+
+  sidebarTitle: {
+    color: '#58A6FF',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+
+  label: {
+    fontSize: 12,
+    color: '#8B949E',
+    marginTop: 10,
+  },
+
+  input: {
+    backgroundColor: '#0D1117',
     borderWidth: 1,
     borderColor: '#30363D',
-
-    // sombra leve
-    elevation: 4,
-  },
-
-  cliente: {
-    fontWeight: 'bold',
-    fontSize: 15,
+    padding: 8,
+    marginTop: 5,
+    borderRadius: 6,
     color: '#FFFFFF',
   },
 
-  detalhes: {
-    fontSize: 12,
-    color: '#8B949E',
-    marginTop: 4,
+  // BOTÕES AÇÕES
+  actionBtn: {
+    padding: 10,
+    backgroundColor: '#21262D',
+    marginBottom: 6,
+    borderRadius: 6,
   },
 
-  botao: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+  actionText: {
+    color: '#58A6FF',
+    fontSize: 13,
   },
 
-  pendente: {
-    backgroundColor: '#F85149', // vermelho moderno
+  button: {
+    marginTop: 15,
+    backgroundColor: '#238636',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 6,
   },
 
-  sucesso: {
-    backgroundColor: '#238636', // verde GitHub style
-  },
-
-  texto: {
+  buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 12,
   },
+
+  // CONTEÚDO
+  content: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#0D1117',
+  },
+
+  // TABELA
+  tableHeader: {
+    flexDirection: 'row',
+    backgroundColor: '#161B22',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#30363D',
+  },
+
+  headerCell: {
+    flex: 1,
+    fontWeight: 'bold',
+    color: '#58A6FF',
+    fontSize: 13,
+  },
+
+  row: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#30363D',
+  },
+
+  rowSelecionada: {
+    backgroundColor: '#1F2A3A',
+  },
+
+  cell: {
+    flex: 1,
+    color: '#FFFFFF',
+    fontSize: 13,
+  },
+
+  // DETALHES
+  details: {
+    marginTop: 10,
+    backgroundColor: '#161B22',
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#30363D',
+    borderRadius: 6,
+  },
+
+  detailsTitle: {
+    fontWeight: 'bold',
+    color: '#58A6FF',
+    marginBottom: 6,
+  },
+
+  detailsText: {
+    color: '#C9D1D9',
+    fontSize: 13,
+  },
+
+  dateInput: {
+  backgroundColor: '#0D1117',
+  borderWidth: 1,
+  borderColor: '#30363D',
+  padding: 10,
+  marginTop: 5,
+  borderRadius: 6,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+
+dateText: {
+  color: '#FFFFFF',
+},
+
+calendarIcon: {
+  color: '#58A6FF',
+},
 });
