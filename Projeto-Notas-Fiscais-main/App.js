@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Alert, Platform } from 'react-native'; // Importei Platform para diferenciar
+import React, { useState, useEffect } from 'react'; // Adicionado useEffect
+import { SafeAreaView, Alert, Platform } from 'react-native';
 import Login from './componentes/Login';
 import Dashboard from './componentes/Dashboard';
 import Cadastro from './componentes/Cadastro';
@@ -15,12 +15,33 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  const [pedidos, setPedidos] = useState([
-    { id: '1', cliente: 'João Silva', valor: 'R$ 150,00', status: 'Pendente' },
-    { id: '2', cliente: 'Maria Oliveira', valor: 'R$ 89,90', status: 'Emitida' },
-  ]);
+  // Agora começa vazio, pois os dados virão do servidor
+  const [pedidos, setPedidos] = useState([]);
 
-  // Função Universal de Alerta (Funciona em Web e Mobile)
+  // Função para buscar os dados falsos do nosso Backend (Mock API)
+  const carregarPedidos = async () => {
+    try {
+      const response = await fetch(`${API_URL}/vendas-teste`);
+      const data = await response.json();
+      
+      if (response.ok) {
+        setPedidos(data); // Preenche o estado com os 15 pedidos aleatórios
+      } else {
+        console.log("Falha ao puxar os pedidos:", data.erro);
+      }
+    } catch (error) {
+      console.error("Erro ao conectar na rota de testes:", error);
+    }
+  };
+
+  // O useEffect "escuta" a variável tela. Toda vez que ela virar 'dashboard', ele puxa os dados.
+  useEffect(() => {
+    if (tela === 'dashboard') {
+      carregarPedidos();
+    }
+  }, [tela]);
+
+  // Função Universal de Alerta
   const exibirAlerta = (titulo, mensagem) => {
     if (Platform.OS === 'web') {
       alert(`${titulo}: ${mensagem}`);
@@ -30,7 +51,7 @@ export default function App() {
   };
 
   const login = async () => {
-    console.log("Tentando login com:", usuario); // Debug no console
+    console.log("Tentando login com:", usuario); 
 
     if (!usuario || !senha) {
       exibirAlerta('Erro', 'Preencha e-mail e senha.');
@@ -52,7 +73,6 @@ export default function App() {
         setUsuario('');
         setSenha('');
       } else {
-        // Pega o erro vindo do backend ou usa a mensagem padrão
         console.log("Falha no login:", data.erro);
         exibirAlerta('Erro', data.erro || 'Usuário ou senha incorretos');
       }

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
+const { fakerPT_BR: faker } = require('@faker-js/faker'); // Importação do Faker em Português
 
 const app = express();
 app.use(cors());
@@ -28,7 +29,6 @@ app.post('/cadastro', async (req, res) => {
     console.log("Salvo no banco com sucesso:", novoUsuario.rows[0]);
     res.status(201).json(novoUsuario.rows[0]);
   } catch (erro) {
-    // ESTA LINHA É A MAIS IMPORTANTE AGORA:
     console.error("ERRO NO POSTGRESQL:", erro.message); 
     console.error("DETALHES DO ERRO:", erro.stack);
     
@@ -51,6 +51,25 @@ app.post('/login', async (req, res) => {
   } catch (erro) {
     console.error(erro);
     res.status(500).json({ erro: 'Erro interno no servidor' });
+  }
+});
+
+// NOVA ROTA: Mock API gerando dados com Faker-js
+app.get('/vendas-teste', (req, res) => {
+  try {
+    // Gera um array com 15 vendas aleatórias
+    const vendasAleatorias = Array.from({ length: 15 }, () => ({
+      id: faker.string.numeric(6),
+      cliente: faker.person.fullName(),
+      data: faker.date.recent({ days: 30 }).toLocaleDateString('pt-BR'),
+      valor: `R$ ${faker.finance.amount({ min: 50, max: 3000, dec: 2 })}`,
+      status: faker.helpers.arrayElement(['Pendente', 'Emitida', 'Cancelada'])
+    }));
+    
+    res.status(200).json(vendasAleatorias);
+  } catch (erro) {
+    console.error("Erro ao gerar dados no Faker:", erro);
+    res.status(500).json({ erro: 'Erro ao gerar dados mockados' });
   }
 });
 

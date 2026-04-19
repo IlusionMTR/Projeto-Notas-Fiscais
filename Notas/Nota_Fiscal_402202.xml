@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe402202" versao="4.00">
+      <ide>
+        <nNF>402202</nNF>
+        <dhEmi>25/03/2026</dhEmi>
+      </ide>
+      <dest>
+        <xNome>Suélen Moraes</xNome>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <total>
+        <ICMSTot>
+          <vNF>2774.55</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

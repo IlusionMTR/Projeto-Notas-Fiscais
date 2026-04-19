@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe492998" versao="4.00">
+      <ide>
+        <nNF>492998</nNF>
+        <dhEmi>05/04/2026</dhEmi>
+      </ide>
+      <dest>
+        <xNome>Breno Moreira</xNome>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <total>
+        <ICMSTot>
+          <vNF>2519.19</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

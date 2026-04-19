@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe059687" versao="4.00">
+      <ide>
+        <nNF>059687</nNF>
+        <dhEmi>23/03/2026</dhEmi>
+      </ide>
+      <dest>
+        <xNome>Júlia Santos</xNome>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <total>
+        <ICMSTot>
+          <vNF>1182.97</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>
