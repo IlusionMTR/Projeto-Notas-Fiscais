@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Adicionado useEffect
+import React, { useState, useEffect } from 'react'; 
 import { SafeAreaView, Alert, Platform } from 'react-native';
 import Login from './componentes/Login';
 import Dashboard from './componentes/Dashboard';

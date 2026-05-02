@@ -5,11 +5,11 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0D1117', // fundo dark real
+    backgroundColor: '#0D1117', 
     padding: 20,
   },
 
-  // BOX (card)
+  // BOX CARD
   card: {
     width: 500,
     height: 400,
@@ -45,7 +45,7 @@ export default StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: '#1F6FEB', //S azul moderno
+    backgroundColor: '#1F6FEB', 
     padding: 12,
     borderRadius: 10,
     marginTop: 5,

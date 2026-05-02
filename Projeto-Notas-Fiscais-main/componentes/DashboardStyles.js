@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  // BASE
   container: {
     flex: 1,
     backgroundColor: '#0D1117',
   },
 
-  // TOPBAR
   topbar: {
     height: 50,
     backgroundColor: '#161B22',
