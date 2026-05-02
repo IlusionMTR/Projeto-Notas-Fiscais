@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Alert, Platform } from 'react-native';
 import Login from './componentes/Login';
 import Dashboard from './componentes/Dashboard';
@@ -8,40 +8,34 @@ const API_URL = 'http://localhost:3000';
 
 export default function App() {
   const [tela, setTela] = useState('login');
+  
   const [usuario, setUsuario] = useState(''); 
   const [senha, setSenha] = useState('');
-
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  // Agora começa vazio, pois os dados virão do servidor
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
   const [pedidos, setPedidos] = useState([]);
 
-  // Função para buscar os dados falsos do nosso Backend (Mock API)
   const carregarPedidos = async () => {
     try {
       const response = await fetch(`${API_URL}/vendas-teste`);
       const data = await response.json();
-      
       if (response.ok) {
-        setPedidos(data); // Preenche o estado com os 15 pedidos aleatórios
-      } else {
-        console.log("Falha ao puxar os pedidos:", data.erro);
+        setPedidos(data);
       }
     } catch (error) {
-      console.error("Erro ao conectar na rota de testes:", error);
+      console.error("Erro ao carregar pedidos:", error);
     }
   };
 
-  // O useEffect "escuta" a variável tela. Toda vez que ela virar 'dashboard', ele puxa os dados.
   useEffect(() => {
     if (tela === 'dashboard') {
       carregarPedidos();
     }
   }, [tela]);
 
-  // Função Universal de Alerta
   const exibirAlerta = (titulo, mensagem) => {
     if (Platform.OS === 'web') {
       alert(`${titulo}: ${mensagem}`);
@@ -51,8 +45,6 @@ export default function App() {
   };
 
   const login = async () => {
-    console.log("Tentando login com:", usuario); 
-
     if (!usuario || !senha) {
       exibirAlerta('Erro', 'Preencha e-mail e senha.');
       return;
@@ -68,23 +60,19 @@ export default function App() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login bem-sucedido!");
+        setUsuarioLogado(data.usuario);
         setTela('dashboard');
         setUsuario('');
         setSenha('');
       } else {
-        console.log("Falha no login:", data.erro);
         exibirAlerta('Erro', data.erro || 'Usuário ou senha incorretos');
       }
     } catch (error) {
-      console.error("Erro na requisição de login:", error);
-      exibirAlerta('Erro de Conexão', 'O servidor está desligado ou o IP está errado.');
+      exibirAlerta('Erro de Conexão', 'Certifique-se que o backend está rodando.');
     }
   };
 
   const finalizarCadastro = async () => {
-    console.log("Tentando cadastrar:", email);
-
     if (!nome || !email || !senha || !confirmarSenha) {
       exibirAlerta('Erro', 'Preencha todos os campos!');
       return;
@@ -102,32 +90,68 @@ export default function App() {
         body: JSON.stringify({ nome, email, senha })
       });
 
-      const data = await response.json();
-
       if (response.ok) {
         exibirAlerta('Sucesso', 'Cadastro realizado!');
         setTela('login');
       } else {
+        const data = await response.json();
         exibirAlerta('Erro', data.erro || 'Erro ao cadastrar.');
       }
     } catch (error) {
-      console.error("Erro no cadastro:", error);
       exibirAlerta('Erro de Conexão', 'Não foi possível conectar ao servidor.');
     }
   };
 
-  const emitirNota = (id) => {
-    exibirAlerta('Nota Fiscal', `Emitindo nota ${id}`);
+  const atualizarUsuario = async (id, dados) => {
+    try {
+      const response = await fetch(`${API_URL}/usuario/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      });
+
+      if (response.ok) {
+        exibirAlerta('Sucesso', 'Dados atualizados! Por favor, entre novamente.');
+        setUsuarioLogado(null);
+        setTela('login');
+      } else {
+        exibirAlerta('Erro', 'Falha ao atualizar dados.');
+      }
+    } catch (error) {
+      exibirAlerta('Erro de Conexão', 'Erro ao tentar atualizar o perfil.');
+    }
+  };
+
+  // NOVA FUNÇÃO: DELETAR USUÁRIO
+  const deletarUsuario = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/usuario/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        exibirAlerta('Conta Removida', 'Sua conta foi excluída com sucesso.');
+        setUsuarioLogado(null);
+        setTela('login');
+      } else {
+        exibirAlerta('Erro', 'Não foi possível excluir a conta.');
+      }
+    } catch (error) {
+      exibirAlerta('Erro de Conexão', 'Erro ao tentar deletar a conta.');
+    }
+  };
+
+  const logout = () => {
+    setUsuarioLogado(null);
+    setTela('login');
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {tela === 'login' ? (
         <Login 
-          usuario={usuario} 
-          setUsuario={setUsuario} 
-          senha={senha} 
-          setSenha={setSenha} 
+          usuario={usuario} setUsuario={setUsuario} 
+          senha={senha} setSenha={setSenha} 
           onLogin={login}
           onIrParaCadastro={() => setTela('cadastro')} 
         />
@@ -141,7 +165,13 @@ export default function App() {
           onVoltar={() => setTela('login')} 
         />
       ) : (
-        <Dashboard pedidos={pedidos} emitirNota={emitirNota} />
+        <Dashboard 
+          pedidos={pedidos} 
+          usuarioLogado={usuarioLogado} 
+          onLogout={logout}
+          onAtualizar={atualizarUsuario}
+          onDeletar={deletarUsuario} // Passando a nova função
+        />
       )}
     </SafeAreaView>
   );
