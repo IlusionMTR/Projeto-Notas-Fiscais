@@ -11,11 +11,12 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'banco_pedidos',
-  password: '360', 
+  password: 'Bnh27712337', 
   port: 5432,
 });
 
 // --- ROTAS DE USUÁRIO ---
+
 app.post('/cadastro', async (req, res) => {
   const { nome, email, senha } = req.body;
   try {
@@ -67,14 +68,24 @@ app.delete('/usuario/:id', async (req, res) => {
   }
 });
 
+// --- ROTA DE VENDAS (SIMULAÇÃO COM FAKER) ---
+
 app.get('/vendas-teste', (req, res) => {
-  const vendasAleatorias = Array.from({ length: 15 }, () => ({
-    id: faker.string.numeric(6),
-    cliente: faker.person.fullName(),
-    data: faker.date.recent({ days: 30 }).toLocaleDateString('pt-BR'),
-    valor: `R$ ${faker.finance.amount({ min: 50, max: 3000, dec: 2 })}`,
-    status: faker.helpers.arrayElement(['Pendente', 'Emitida', 'Cancelada'])
-  }));
+  const vendasAleatorias = Array.from({ length: 15 }, () => {
+    // Gera um CPF fake formatado: 000.000.000-00
+    const fakeCpf = `${faker.string.numeric(3)}.${faker.string.numeric(3)}.${faker.string.numeric(3)}-${faker.string.numeric(2)}`;
+    
+    return {
+      id: faker.string.numeric(6),
+      cliente: faker.person.fullName(),
+      cpf: fakeCpf, // CPF adicionado
+      data: faker.date.recent({ days: 30 }).toLocaleDateString('pt-BR'),
+      produto: faker.commerce.productName(), // Produto adicionado
+      valor: `R$ ${faker.finance.amount({ min: 50, max: 3000, dec: 2 })}`,
+      status: faker.helpers.arrayElement(['Pendente', 'Emitida', 'Cancelado']) // Status conforme solicitado
+    };
+  });
+  
   res.status(200).json(vendasAleatorias);
 });
 

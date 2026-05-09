@@ -1,13 +1,11 @@
-import { StyleSheet, Platform } from 'react-native'; // O 'Platform' faltava aqui!
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
-  // Container Principal
   container: { 
     flex: 1, 
     backgroundColor: '#0D1117' 
   },
   
-  // Barra Superior
   topbar: { 
     height: 50, 
     backgroundColor: '#161B22', 
@@ -22,13 +20,11 @@ export default StyleSheet.create({
     fontSize: 16 
   },
   
-  // Layout Principal
   main: { 
     flex: 1, 
     flexDirection: 'row' 
   },
   
-  // Sidebar (Barra Lateral)
   sidebar: { 
     width: 220, 
     backgroundColor: '#161B22', 
@@ -57,7 +53,6 @@ export default StyleSheet.create({
     color: '#FFFFFF' 
   },
   
-  // Botões de Ação
   actionBtn: { 
     padding: 10, 
     backgroundColor: '#21262D', 
@@ -80,7 +75,6 @@ export default StyleSheet.create({
     fontWeight: 'bold' 
   },
   
-  // Conteúdo Central (Tabela)
   content: { 
     flex: 1, 
     padding: 10, 
@@ -114,11 +108,10 @@ export default StyleSheet.create({
     fontSize: 13 
   },
   
-  // Detalhes (Visualização Rápida)
   details: { 
     marginTop: 10, 
     backgroundColor: '#161B22', 
-    padding: 12, 
+    padding: 15, 
     borderWidth: 1, 
     borderColor: '#30363D', 
     borderRadius: 6 
@@ -126,14 +119,15 @@ export default StyleSheet.create({
   detailsTitle: { 
     fontWeight: 'bold', 
     color: '#58A6FF', 
-    marginBottom: 6 
+    marginBottom: 10,
+    fontSize: 15
   },
   detailsText: { 
     color: '#C9D1D9', 
-    fontSize: 13 
+    fontSize: 13,
+    marginBottom: 4
   },
   
-  // Calendário/Datas
   dateInput: { 
     backgroundColor: '#0D1117', 
     borderWidth: 1, 
@@ -146,13 +140,14 @@ export default StyleSheet.create({
     alignItems: 'center' 
   },
   dateText: { 
-    color: '#FFFFFF' 
+    color: '#FFFFFF',
+    fontSize: 13
   },
   calendarIcon: { 
-    color: '#58A6FF' 
+    color: '#58A6FF',
+    fontSize: 12
   },
 
-  // Perfil e Menu Dropdown (Sidebar Inferior)
   profileContainer: { 
     position: 'absolute', 
     bottom: 20, 
@@ -193,7 +188,6 @@ export default StyleSheet.create({
     fontSize: 13 
   },
 
-  // Estilos do Modal de Atualização
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',

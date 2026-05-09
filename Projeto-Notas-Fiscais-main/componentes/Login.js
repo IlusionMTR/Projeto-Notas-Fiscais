@@ -13,6 +13,8 @@ export default function Login({ usuario, setUsuario, senha, setSenha, onLogin, o
       {/* BOX CENTRAL */}
       <View style={styles.card}>
 
+        <Text style={styles.titulo}>NexusNF</Text>
+
         <Text style={styles.titulo}>Entrar</Text>
 
         <TextInput
