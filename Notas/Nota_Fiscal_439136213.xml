@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe439136213" versao="4.00">
+      <ide>
+        <nNF>439136213</nNF>
+        <dhEmi>18/04/2026</dhEmi>
+      </ide>
+      <dest>
+        <xNome>Lavínia Carvalho</xNome>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <total>
+        <ICMSTot>
+          <vNF>2510.99</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

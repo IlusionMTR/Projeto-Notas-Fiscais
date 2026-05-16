@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe61213745612920657190438848895524138862898981" versao="4.00">
+      <ide>
+        <cUF>35</cUF>
+        <natOp>Venda de mercadorias</natOp>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>889842608</nNF>
+        <dhEmi>30/04/2026</dhEmi>
+        <tpNF>1</tpNF>
+      </ide>
+      <emit>
+        <CNPJ>26024773000100</CNPJ>
+        <xNome>CARLOS</xNome>
+        <enderEmit>
+          <xLgr>Tv. Henrique Kopke, 44 - Centro, Niterói</xLgr>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+        </enderEmit>
+        <IE>189204998115</IE>
+      </emit>
+      <dest>
+        <CPF>75794555601</CPF>
+        <xNome>Raul Braga</xNome>
+        <enderDest>
+          <xLgr>Travessa Antônio, 362</xLgr>
+          <xBairro>West Glamorgan</xBairro>
+          <xMun>Xavier do Norte</xMun>
+          <UF>SC</UF>
+          <CEP>37727925</CEP>
+        </enderDest>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>001</cProd>
+          <xProd>Mouse Gostoso de Congelado</xProd>
+          <qCom>1.0000</qCom>
+          <vUnCom>1157.00</vUnCom>
+          <vProd>1157.00</vProd>
+        </prod>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vProd>1157.00</vProd>
+          <vNF>1157.00</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

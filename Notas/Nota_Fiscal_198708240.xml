@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe>
+    <infNFe Id="NFe53209306628162641310883264848761661451799437" versao="4.00">
+      <ide>
+        <cUF>35</cUF>
+        <natOp>Venda de mercadorias</natOp>
+        <mod>55</mod>
+        <serie>1</serie>
+        <nNF>198708240</nNF>
+        <dhEmi>07/05/2026</dhEmi>
+        <tpNF>1</tpNF>
+      </ide>
+      <emit>
+        <CNPJ>26024773000100</CNPJ>
+        <xNome>AA</xNome>
+        <enderEmit>
+          <xLgr>Rua Ibitira, 8 - Vila Clementina</xLgr>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+        </enderEmit>
+        <IE>189204998115</IE>
+      </emit>
+      <dest>
+        <CPF>04380681800</CPF>
+        <xNome>Sra. Karla Martins</xNome>
+        <enderDest>
+          <xLgr>Alameda Souza, 63916</xLgr>
+          <xBairro>Strathclyde</xBairro>
+          <xMun>Albuquerque do Norte</xMun>
+          <UF>RR</UF>
+          <CEP>64144432</CEP>
+        </enderDest>
+        <indIEDest>9</indIEDest>
+      </dest>
+      <det nItem="1">
+        <prod>
+          <cProd>001</cProd>
+          <xProd>Queijo Prático de Fresco</xProd>
+          <qCom>1.0000</qCom>
+          <vUnCom>1100.05</vUnCom>
+          <vProd>1100.05</vProd>
+        </prod>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>0.00</vBC>
+          <vICMS>0.00</vICMS>
+          <vProd>1100.05</vProd>
+          <vNF>1100.05</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

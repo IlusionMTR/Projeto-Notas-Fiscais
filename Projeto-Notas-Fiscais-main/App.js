@@ -102,30 +102,33 @@ export default function App() {
     }
   };
 
+  // FUNÇÃO ATUALIZAR: Sincronizada com a rota pluralizada do backend e atualizando o estado ao vivo
   const atualizarUsuario = async (id, dados) => {
     try {
-      const response = await fetch(`${API_URL}/usuario/${id}`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        exibirAlerta('Sucesso', 'Dados atualizados! Por favor, entre novamente.');
-        setUsuarioLogado(null);
-        setTela('login');
+        exibirAlerta('Sucesso', 'Dados atualizados com sucesso!');
+        // Atualiza o estado global com os novos dados vindos do banco
+        setUsuarioLogado(data.usuario);
       } else {
-        exibirAlerta('Erro', 'Falha ao atualizar dados.');
+        exibirAlerta('Erro', data.erro || 'Falha ao atualizar dados.');
       }
     } catch (error) {
       exibirAlerta('Erro de Conexão', 'Erro ao tentar atualizar o perfil.');
     }
   };
 
-  // NOVA FUNÇÃO: DELETAR USUÁRIO
+  // FUNÇÃO DELETAR: Sincronizada com a rota pluralizada do backend
   const deletarUsuario = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/usuario/${id}`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}`, {
         method: 'DELETE',
       });
 
@@ -170,7 +173,7 @@ export default function App() {
           usuarioLogado={usuarioLogado} 
           onLogout={logout}
           onAtualizar={atualizarUsuario}
-          onDeletar={deletarUsuario} // Passando a nova função
+          onDeletar={deletarUsuario}
         />
       )}
     </SafeAreaView>
