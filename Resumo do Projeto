@@ -1,0 +1,537 @@
+# Projeto Notas Fiscais
+
+Projeto desenvolvido para simular um sistema de gerenciamento e consulta de notas fiscais.
+
+A aplicação possui um frontend feito em **React Native + Expo** e um backend em **Node.js + Express**, com **PostgreSQL** para armazenar os usuários.
+
+Para simular as vendas e notas fiscais, usamos a biblioteca **Faker.js**, que gera dados fictícios através de uma API. Dessa forma, conseguimos testar o sistema com vários registros sem precisar utilizar dados fiscais reais.
+
+> Este é um projeto para fins de estudo e demonstração. As notas, XMLs e dados utilizados pela aplicação são fictícios.
+
+---
+
+## Sobre o projeto
+
+A ideia do projeto é criar uma aplicação onde o usuário consiga fazer login, consultar notas fiscais e visualizar as informações de cada uma delas.
+
+Entre as principais funcionalidades estão:
+
+* Cadastro de usuário
+* Login
+* Dashboard com as vendas
+* Filtro por CPF
+* Filtro por período
+* Visualização dos dados de uma nota
+* Visualização do DANFE
+* Geração de XML
+* Atualização dos dados do usuário
+* Exclusão da conta
+* Logout
+
+O projeto foi dividido entre frontend e backend para simular uma aplicação real utilizando uma API para comunicação entre as duas partes.
+
+---
+
+## Tecnologias utilizadas
+
+### Frontend
+
+* React Native
+* Expo
+* React Navigation
+* React Native DateTimePicker
+* Expo FileSystem
+* Expo Sharing
+
+### Backend
+
+* Node.js
+* Express
+* PostgreSQL
+* pg
+* CORS
+* Faker.js
+
+---
+
+## Como funciona
+
+O usuário começa pela tela de login. Caso ainda não tenha uma conta, pode realizar o cadastro.
+
+Depois de entrar, ele é direcionado para o Dashboard, onde consegue visualizar as vendas e notas fiscais geradas pela API.
+
+O fluxo principal é basicamente:
+
+```text
+Usuário
+   |
+   v
+Login / Cadastro
+   |
+   v
+Dashboard
+   |
+   +-- Consulta das vendas
+   |
+   +-- Filtro por CPF
+   |
+   +-- Filtro por data
+   |
+   +-- Visualização da nota
+   |
+   +-- DANFE
+   |
+   +-- Geração do XML
+```
+
+---
+
+## API de dados simulados
+
+Uma das partes principais do projeto é a API que gera os dados das notas.
+
+Como não estamos trabalhando com uma base real de notas fiscais, utilizamos o **Faker.js** para criar informações fictícias.
+
+A rota:
+
+```http
+GET /vendas-teste
+```
+
+gera registros de vendas automaticamente.
+
+Entre os dados gerados estão:
+
+* Nome do cliente
+* CPF
+* Data
+* Valor
+* Produto
+* Status
+* Endereço
+* Cidade
+* Estado
+* CEP
+* Chave de acesso
+* Inscrição Estadual
+* Natureza da operação
+
+A cada requisição são gerados novos dados, então podemos testar o sistema com diferentes combinações de clientes, valores, datas e produtos.
+
+Exemplo:
+
+```json
+{
+  "id": "123456789",
+  "cliente": "João da Silva",
+  "cpf": "123.456.789-00",
+  "data": "20/08/2026",
+  "valor": "R$ 850,00",
+  "status": "Emitida",
+  "produto": "Produto de exemplo"
+}
+```
+
+Esses dados são apenas para simulação e não representam pessoas ou notas reais.
+
+---
+
+## Dashboard
+
+O Dashboard é a parte principal da aplicação.
+
+Nele o usuário consegue visualizar as vendas geradas pela API e aplicar filtros para encontrar determinados registros.
+
+Os filtros disponíveis são:
+
+### CPF
+
+É possível pesquisar uma venda utilizando o CPF do cliente.
+
+O campo também possui formatação automática:
+
+```text
+000.000.000-00
+```
+
+### Período
+
+Também é possível selecionar uma data inicial e uma data final para encontrar as vendas daquele período.
+
+Os filtros podem ser combinados e também existe a opção de limpar todos eles.
+
+---
+
+## Visualização da nota
+
+Ao selecionar uma venda, o usuário consegue visualizar os detalhes da nota.
+
+São apresentadas informações como:
+
+* Número da nota
+* Chave de acesso
+* Natureza da operação
+* Dados do cliente
+* CPF
+* Endereço
+* Dados do emitente
+* CNPJ
+* Inscrição Estadual
+* Produto
+* Quantidade
+* Valor unitário
+* Valor total
+
+---
+
+## DANFE
+
+O projeto também possui uma representação visual de um **DANFE (Documento Auxiliar da Nota Fiscal Eletrônica)**.
+
+A ideia é mostrar de forma mais próxima de um documento fiscal as informações da nota selecionada.
+
+Essa parte foi feita diretamente no React Native utilizando os componentes da própria aplicação.
+
+É importante lembrar que o DANFE do projeto é apenas uma representação para fins de estudo e não possui validade fiscal.
+
+---
+
+## Geração do XML
+
+Também é possível gerar um arquivo XML com os dados da nota selecionada.
+
+O sistema monta uma estrutura baseada no formato de uma NF-e, contendo informações do emitente, destinatário, produtos, valores e outros dados.
+
+Um exemplo simplificado da estrutura:
+
+```xml
+<nfeProc>
+    <NFe>
+        <infNFe>
+            <ide>
+                ...
+            </ide>
+
+            <emit>
+                ...
+            </emit>
+
+            <dest>
+                ...
+            </dest>
+
+            <det>
+                ...
+            </det>
+
+            <total>
+                ...
+            </total>
+        </infNFe>
+    </NFe>
+</nfeProc>
+```
+
+O arquivo é gerado com o nome:
+
+```text
+Nota_Fiscal_ID.xml
+```
+
+No ambiente web, o arquivo pode ser baixado pelo navegador. Em dispositivos, utilizamos recursos do Expo para salvar e compartilhar o arquivo.
+
+Assim como os outros dados do projeto, esse XML é apenas para demonstração e não representa uma NF-e oficialmente emitida.
+
+---
+
+## Usuários
+
+Os usuários são armazenados no PostgreSQL.
+
+O sistema possui operações para:
+
+* Criar usuário
+* Fazer login
+* Alterar usuário
+* Excluir usuário
+
+As principais rotas relacionadas aos usuários são:
+
+```http
+POST /cadastro
+POST /login
+PUT /usuarios/:id
+DELETE /usuarios/:id
+```
+
+---
+
+## Estrutura do projeto
+
+A estrutura principal do projeto está organizada da seguinte forma:
+
+```text
+Projeto-Notas-Fiscais/
+│
+├── Notas/
+│   ├── Nota_Fiscal_*.xml
+│   └── ...
+│
+├── Projeto-Notas-Fiscais-main/
+│   ├── assets/
+│   │
+│   ├── componentes/
+│   │   ├── Cadastro.js
+│   │   ├── CadastroStyles.js
+│   │   ├── Dashboard.js
+│   │   ├── DashboardStyles.js
+│   │   ├── Login.js
+│   │   └── LoginStyles.js
+│   │
+│   ├── App.js
+│   ├── app.json
+│   ├── index.js
+│   └── package.json
+│
+└── backend-app/
+    ├── package.json
+    ├── package-lock.json
+    └── server.js
+```
+
+---
+
+## Backend
+
+O backend foi feito utilizando Node.js e Express.
+
+Ele é responsável por:
+
+* Receber as requisições do frontend
+* Fazer o cadastro dos usuários
+* Realizar o login
+* Atualizar usuários
+* Excluir usuários
+* Gerar os dados fictícios das vendas
+* Se comunicar com o PostgreSQL
+
+O servidor utiliza a porta:
+
+```text
+3000
+```
+
+---
+
+## Banco de dados
+
+O banco utilizado é o PostgreSQL.
+
+A tabela principal é a de usuários.
+
+Um exemplo da estrutura utilizada:
+
+```sql
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);
+```
+
+As informações são acessadas pelo backend utilizando a biblioteca `pg`.
+
+Para uma aplicação em produção, seria interessante melhorar essa parte utilizando variáveis de ambiente para as configurações do banco e também criptografando as senhas.
+
+---
+
+## Rotas da API
+
+| Método | Rota            | Função                |
+| ------ | --------------- | --------------------- |
+| POST   | `/cadastro`     | Cadastra um usuário   |
+| POST   | `/login`        | Realiza o login       |
+| PUT    | `/usuarios/:id` | Atualiza um usuário   |
+| DELETE | `/usuarios/:id` | Exclui um usuário     |
+| GET    | `/vendas-teste` | Gera vendas fictícias |
+
+---
+
+## Como executar
+
+### 1. Clonar o projeto
+
+```bash
+git clone https://github.com/IlusionMTR/Projeto-Notas-Fiscais.git
+```
+
+Depois:
+
+```bash
+cd Projeto-Notas-Fiscais
+```
+
+### 2. Instalar as dependências do backend
+
+```bash
+cd backend-app
+npm install
+```
+
+### 3. Configurar o PostgreSQL
+
+Crie um banco PostgreSQL e configure a tabela `usuarios`.
+
+Depois, configure a conexão no backend.
+
+### 4. Iniciar o backend
+
+```bash
+node server.js
+```
+
+O backend ficará disponível em:
+
+```text
+http://localhost:3000
+```
+
+### 5. Instalar as dependências do frontend
+
+Em outro terminal:
+
+```bash
+cd Projeto-Notas-Fiscais-main
+npm install
+```
+
+### 6. Iniciar o projeto
+
+```bash
+npm start
+```
+
+Também é possível executar utilizando:
+
+```bash
+npm run web
+```
+
+ou:
+
+```bash
+npm run android
+```
+
+ou:
+
+```bash
+npm run ios
+```
+
+---
+
+## Fluxo dos dados
+
+O funcionamento da parte de vendas pode ser resumido assim:
+
+```text
+React Native
+     |
+     | GET /vendas-teste
+     v
+Node.js + Express
+     |
+     v
+Faker.js
+     |
+     | Dados fictícios
+     v
+React Native
+     |
+     +--> Dashboard
+     |
+     +--> Filtros
+     |
+     +--> DANFE
+     |
+     +--> XML
+```
+
+Já o fluxo de usuários funciona através do PostgreSQL:
+
+```text
+React Native
+     |
+     | Login / Cadastro
+     v
+Node.js + Express
+     |
+     v
+PostgreSQL
+     |
+     v
+Usuário
+```
+
+---
+
+## O que foi praticado
+
+Durante o desenvolvimento desse projeto, foram trabalhados vários conceitos:
+
+* React Native
+* Expo
+* Componentização
+* Hooks
+* Navegação
+* Consumo de API
+* Node.js
+* Express
+* PostgreSQL
+* SQL
+* CRUD
+* Comunicação entre frontend e backend
+* Geração de dados fictícios
+* Faker.js
+* Manipulação de arquivos
+* XML
+* Filtros
+* Formulários
+* Modais
+* DANFE
+* Estrutura de NF-e
+
+---
+
+## Possíveis melhorias
+
+Algumas coisas que podem ser adicionadas futuramente:
+
+* Autenticação com JWT
+* Hash das senhas com bcrypt
+* Utilização de `.env`
+* Paginação das notas
+* Busca por número da nota
+* Busca pela chave de acesso
+* Ordenação das vendas
+* Gráficos no Dashboard
+* Validação de XML
+* Geração de DANFE em PDF
+* Testes automatizados
+* Docker para o backend e PostgreSQL
+* Deploy da aplicação
+* Documentação mais completa da API
+
+---
+
+## Observação
+
+O projeto utiliza dados gerados pelo Faker.js justamente para evitar a necessidade de utilizar informações fiscais reais.
+
+Por isso, os clientes, CPFs, valores, produtos, notas e XMLs apresentados na aplicação são fictícios.
+
+O objetivo principal é demonstrar o funcionamento de uma aplicação de notas fiscais e a integração entre **React Native, API, banco de dados e geração de documentos**.
+
+
